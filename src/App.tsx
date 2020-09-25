@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./App.css";
+import Spinner from "./spinner_transparent.gif";
 
 function App() {
   const [searchType, setSearchType] = useState("users");
@@ -9,7 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const searchTypeRef = useRef();
   const searchTextRef = useRef();
-  //@ts-ignore
+
   searchTypeRef.current = searchType;
   searchTextRef.current = searchText;
 
@@ -54,10 +55,12 @@ function App() {
   return (
     <div className="wrapper">
       <div>
-        <div>
-          <label>
-            <b>GitHub Searcher</b>
-          </label>
+        <div className="search-container">
+          <div>
+            <label>
+              <b>GitHub Searcher</b>
+            </label>
+          </div>
           <input
             onChange={handleSearchTextChange}
             placeholder="Start typing to search ..."
@@ -74,7 +77,9 @@ function App() {
           </select>
         </div>
         {loading ? (
-          <div>Loading</div>
+          <div className="loader">
+            <img src={Spinner} alt="" />
+          </div>
         ) : (
           <div className="card-container">
             {dataItems &&
@@ -109,8 +114,12 @@ function App() {
                         <span>{result.owner.login}</span>
                       </div>
                       <div className="repo-stats">
-                        <span>Stars: {result.stargazers_count}</span>
-                        <span>Forks: {result.forks_count}</span>
+                        <span className="stat">
+                          Stars: {result.stargazers_count}
+                        </span>
+                        <span className="stat">
+                          Forks: {result.forks_count}
+                        </span>
                         <span>Watchers: {result.watchers_count}</span>
                       </div>
                       <p>{result.description}</p>

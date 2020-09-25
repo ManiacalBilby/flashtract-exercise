@@ -37,6 +37,26 @@
   }
 }
 
+/* ADDED CLASSES */
+
+input {
+  min-height: 30px;
+  padding-left: 5px;
+  width: 300px;
+  margin: 5px 5px 0 0;
+  border: 1px solid lightgrey;
+}
+select {
+  min-height: 34px;
+  min-width: 100px;
+  padding: 0 5px;
+  border: 1px solid lightgrey;
+}
+
+.search-container {
+  margin: 50px;
+}
+
 .wrapper {
   padding: 1vw;
   display: flex;
@@ -48,8 +68,9 @@
 
 .repo-card,
 .user-card {
-  box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
+  border: 1px solid lightgrey;
   padding: 10px;
   margin: 15px;
   display: flex;
@@ -62,8 +83,8 @@
   width: 300px;
 }
 .user-card {
-  height: 125px;
-  width: 200px;
+  height: 135px;
+  width: 202px;
 }
 
 .profile-info {
@@ -92,4 +113,16 @@
 .repo-stats {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.stat {
+  margin: 0 5px 5px 0;
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
