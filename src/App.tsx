@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./App.css";
 import Spinner from "./spinner_transparent.gif";
+import RepoCard from "./RepoCard";
+import UserCard from "./UserCard";
 
 function App() {
   const [searchType, setSearchType] = useState("users");
@@ -27,10 +29,6 @@ function App() {
   async function handleSearchTextChange(e) {
     //@ts-ignore
     await setSearchText(e.target.value);
-    console.log(
-      "search text ref in handleSearchTextChange",
-      searchTextRef.current
-    );
     if (searchTextRef.current) {
       sendRequest();
     }
@@ -44,7 +42,6 @@ function App() {
       )
       .then(function (response) {
         setLoading(false);
-        console.log(response);
         //@ts-ignore
         setDataResults(response);
       })
@@ -86,45 +83,8 @@ function App() {
               //@ts-ignore
               dataItems.map((result) => {
                 if (result.avatar_url) {
-                  return (
-                    <div className="user-card" key={result.id}>
-                      <div className="profile-info">
-                        <img
-                          src={result.avatar_url}
-                          className="profile-pic"
-                          alt=""
-                        />
-                        <span>{result.login}</span>
-                      </div>
-                      <div>
-                        <a href={result.url}>View Profile</a>
-                      </div>
-                    </div>
-                  );
-                } else
-                  return (
-                    <div className="repo-card" key={result.id}>
-                      <span>{result.name}</span>
-                      <div className="profile-info">
-                        <img
-                          src={result.owner.avatar_url}
-                          className="profile-pic"
-                          alt=""
-                        />
-                        <span>{result.owner.login}</span>
-                      </div>
-                      <div className="repo-stats">
-                        <span className="stat">
-                          Stars: {result.stargazers_count}
-                        </span>
-                        <span className="stat">
-                          Forks: {result.forks_count}
-                        </span>
-                        <span>Watchers: {result.watchers_count}</span>
-                      </div>
-                      <p>{result.description}</p>
-                    </div>
-                  );
+                  return <UserCard result={result} />;
+                } else return <RepoCard result={result} />;
               })}
           </div>
         )}
