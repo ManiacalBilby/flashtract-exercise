@@ -46,17 +46,24 @@
   background-color: ghostwhite;
 }
 
-.card {
+.repo-card,
+.user-card {
   box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   padding: 10px;
-  margin: 10px;
-  height: 150px;
-  width: 300px;
+  margin: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
+}
+.repo-card {
+  height: 200px;
+  width: 300px;
+}
+.user-card {
+  height: 125px;
+  width: 200px;
 }
 
 .profile-info {
@@ -79,5 +86,10 @@
   object-fit: cover;
   width: 40px;
   height: 40px;
-  margin: 0 5px;
+  margin-right: 5px;
+}
+
+.repo-stats {
+  display: flex;
+  justify-content: space-between;
 }

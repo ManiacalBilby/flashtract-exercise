@@ -79,28 +79,41 @@ function App() {
           <div className="card-container">
             {dataItems &&
               //@ts-ignore
-              dataItems.map((element) => {
-                if (element.avatar_url) {
+              dataItems.map((result) => {
+                if (result.avatar_url) {
                   return (
-                    <div className="card" key={element.id}>
+                    <div className="user-card" key={result.id}>
                       <div className="profile-info">
                         <img
-                          src={element.avatar_url}
+                          src={result.avatar_url}
                           className="profile-pic"
                           alt=""
                         />
-                        <span>{element.login}</span>
+                        <span>{result.login}</span>
                       </div>
                       <div>
-                        <a href={element.url}>Visit Profile</a>
+                        <a href={result.url}>View Profile</a>
                       </div>
                     </div>
                   );
                 } else
                   return (
-                    <div className="card" key={element.id}>
-                      <span>{element.name}</span>
-                      <p>{element.description}</p>
+                    <div className="repo-card" key={result.id}>
+                      <span>{result.name}</span>
+                      <div className="profile-info">
+                        <img
+                          src={result.owner.avatar_url}
+                          className="profile-pic"
+                          alt=""
+                        />
+                        <span>{result.owner.login}</span>
+                      </div>
+                      <div className="repo-stats">
+                        <span>Stars: {result.stargazers_count}</span>
+                        <span>Forks: {result.forks_count}</span>
+                        <span>Watchers: {result.watchers_count}</span>
+                      </div>
+                      <p>{result.description}</p>
                     </div>
                   );
               })}
