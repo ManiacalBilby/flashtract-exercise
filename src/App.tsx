@@ -76,8 +76,17 @@ function App() {
               if (element.avatar_url) {
                 return (
                   <div className="card" key={element.id}>
-                    <img src={element.avatar_url} className="profile" alt="" />
-                    <span>{element.login}</span>
+                    <div className="profile-info">
+                      <img
+                        src={element.avatar_url}
+                        className="profile-pic"
+                        alt=""
+                      />
+                      <span>{element.login}</span>
+                    </div>
+                    <div>
+                      <a href={element.url}>Visit Profile</a>
+                    </div>
                   </div>
                 );
               } else
