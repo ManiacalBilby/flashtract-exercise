@@ -14,9 +14,6 @@ function App() {
 
   //@ts-ignore
   const dataItems = dataResults && dataResults.data.items;
-
-  console.log("searchType", searchType);
-  console.log("searchText", searchText);
   //@ts-ignore
   async function handleSearchTypeChange(e) {
     await setSearchType(e.target.value);
@@ -27,16 +24,20 @@ function App() {
   //@ts-ignore
   async function handleSearchTextChange(e) {
     //@ts-ignore
-    await setSearchText(`?q=${e.target.value}`);
-    sendRequest();
+    await setSearchText(e.target.value);
+    console.log(
+      "search text ref in handleSearchTextChange",
+      searchTextRef.current
+    );
+    if (searchTextRef.current) {
+      sendRequest();
+    }
   }
   //@ts-ignore
   function sendRequest() {
-    console.log("searchType in sendRequest", searchTypeRef.current);
-    console.log("searchText in sendRequest", searchTextRef.current);
     axios
       .get(
-        `https://api.github.com/search/${searchTypeRef.current}${searchTextRef.current}`
+        `https://api.github.com/search/${searchTypeRef.current}?q=${searchTextRef.current}`
       )
       .then(function (response) {
         console.log(response);
