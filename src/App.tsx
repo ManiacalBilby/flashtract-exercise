@@ -6,6 +6,7 @@ function App() {
   const [searchType, setSearchType] = useState("users");
   const [searchText, setSearchText] = useState();
   const [dataResults, setDataResults] = useState();
+  const [loading, setLoading] = useState(false);
   const searchTypeRef = useRef();
   const searchTextRef = useRef();
   //@ts-ignore
@@ -35,11 +36,13 @@ function App() {
   }
   //@ts-ignore
   function sendRequest() {
+    setLoading(true);
     axios
       .get(
         `https://api.github.com/search/${searchTypeRef.current}?q=${searchTextRef.current}`
       )
       .then(function (response) {
+        setLoading(false);
         console.log(response);
         //@ts-ignore
         setDataResults(response);
@@ -70,35 +73,39 @@ function App() {
             <option value="repositories">Repos</option>
           </select>
         </div>
-        <div className="card-container">
-          {dataItems &&
-            //@ts-ignore
-            dataItems.map((element) => {
-              if (element.avatar_url) {
-                return (
-                  <div className="card" key={element.id}>
-                    <div className="profile-info">
-                      <img
-                        src={element.avatar_url}
-                        className="profile-pic"
-                        alt=""
-                      />
-                      <span>{element.login}</span>
+        {loading ? (
+          <div>Loading</div>
+        ) : (
+          <div className="card-container">
+            {dataItems &&
+              //@ts-ignore
+              dataItems.map((element) => {
+                if (element.avatar_url) {
+                  return (
+                    <div className="card" key={element.id}>
+                      <div className="profile-info">
+                        <img
+                          src={element.avatar_url}
+                          className="profile-pic"
+                          alt=""
+                        />
+                        <span>{element.login}</span>
+                      </div>
+                      <div>
+                        <a href={element.url}>Visit Profile</a>
+                      </div>
                     </div>
-                    <div>
-                      <a href={element.url}>Visit Profile</a>
+                  );
+                } else
+                  return (
+                    <div className="card" key={element.id}>
+                      <span>{element.name}</span>
+                      <p>{element.description}</p>
                     </div>
-                  </div>
-                );
-              } else
-                return (
-                  <div className="card" key={element.id}>
-                    <span>{element.name}</span>
-                    <p>{element.description}</p>
-                  </div>
-                );
-            })}
-        </div>
+                  );
+              })}
+          </div>
+        )}
       </div>
     </div>
   );
