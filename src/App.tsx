@@ -10,7 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const searchTypeRef = useRef();
   const searchTextRef = useRef();
-
+  //@ts-ignore
   searchTypeRef.current = searchType;
   searchTextRef.current = searchText;
 
